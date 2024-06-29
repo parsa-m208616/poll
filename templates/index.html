@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
+    <ul>
+    {% for question in questions %}
+        <li>
+          <div>
+            @{{ question.host }} -- {{ question.pub_date|timesince }} ago
+              <br><br>
+            <a href="{% url 'question' question.id %}">{{ question.question_text }}</a>
+            <hr>  
+          </div>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
