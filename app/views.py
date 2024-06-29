@@ -4,8 +4,9 @@ from .models import *
 
 def index(request):
 
-    questions = Question.objects.all()
+    questions = Question.objects.all().order_by('-pub_date')
     context = {'questions': questions}
+
     return render(request, 'index.html', context)
 
 def question_detail(request, question_id):
@@ -23,3 +24,10 @@ def question_detail(request, question_id):
     }
     return render(request, 'question_detail.html', context)
 
+def create_question(request):
+
+
+    context = {
+
+    }
+    return render(request, 'create_question.html', context)

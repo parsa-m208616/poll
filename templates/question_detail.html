@@ -13,4 +13,9 @@
         {% endfor %}
         <input type="submit" value="submit">
     </form>
+    <br>
+    <hr>
+    <p>
+    @{{ question.host }} -- {{ question.pub_date|timesince }}
+    </p>
 {% endblock %}

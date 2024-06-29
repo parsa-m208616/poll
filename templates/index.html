@@ -8,7 +8,8 @@
             @{{ question.host }} -- {{ question.pub_date|timesince }} ago
               <br><br>
             <a href="{% url 'question' question.id %}">{{ question.question_text }}</a>
-            <hr>  
+            <hr>
+              <br>
           </div>
         </li>
     {% endfor %}
