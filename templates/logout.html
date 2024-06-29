@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{{ request.META.get.HTTP_REFERER }}">go back</a>
+    <form action="" method="post">{% csrf_token %}
+        <input type="submit" value="logout">
+    </form>
+{% endblock %}

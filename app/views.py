@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 
 def index(request):
     topics = Topic.objects.all()
@@ -37,3 +39,45 @@ def create_question(request):
 
     }
     return render(request, 'create_question.html', context)
+
+def signup_page(request):
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            user.save()
+
+    return render(request, 'signup.html', {'form': form})
+
+def logout_page(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('index')
+
+    return render(request, 'logout.html')
+
+def login_page(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            return HttpResponse('invalid')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            return HttpResponse('invalid username or password')
+
+    return render(request, 'login_page.html')
+
+
