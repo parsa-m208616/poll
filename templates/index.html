@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <style>
+    
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+        }
+    
+    </style>
+    
+    <div class="container">
+        <div>
+            <h3>topics</h3>
+        </div>
+
+        <div>
+            
     <ul>
     {% for question in questions %}
         <li>
@@ -8,10 +24,16 @@
             @{{ question.host }} -- {{ question.pub_date|timesince }} ago
               <br><br>
             <a href="{% url 'question' question.id %}">{{ question.question_text }}</a>
+              topic: {{ question.topic }}
             <hr>
               <br>
           </div>
         </li>
     {% endfor %}
     </ul>
+        </div>
+
+    </div>
+    
+    
 {% endblock %}
