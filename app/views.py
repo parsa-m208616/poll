@@ -3,9 +3,15 @@ from .models import *
 
 
 def index(request):
-
+    topics = Topic.objects.all()
     questions = Question.objects.all().order_by('-pub_date')
-    context = {'questions': questions}
+
+    q = request.GET.get('q') if request.GET.get('q') is not None else None
+
+    if q is not None:
+        questions = Question.objects.filter(topic__topic_text=q).order_by('-pub_date')
+
+    context = {'questions': questions, 'topics': topics}
 
     return render(request, 'index.html', context)
 

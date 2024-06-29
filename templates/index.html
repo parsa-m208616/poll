@@ -12,11 +12,22 @@
     
     <div class="container">
         <div>
-            <h3>topics</h3>
+            <h3 style="font-size: xx-large">topics</h3>
+            <hr>
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}">all</a>
+                </li>
+                {% for topic in topics %}
+                    <li>
+                        <a href="{% url 'index' %}?q={{ topic.topic_text }}">{{ topic.topic_text }}</a>          
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
 
         <div>
-            
+            {{ questions.count }} are available
     <ul>
     {% for question in questions %}
         <li>
