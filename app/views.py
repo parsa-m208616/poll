@@ -1,8 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework import status
+
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+
 
 def index(request):
     topics = Topic.objects.all()
@@ -79,5 +85,11 @@ def login_page(request):
             return HttpResponse('invalid username or password')
 
     return render(request, 'login_page.html')
+
+@api_view(['POST'])
+def test_page(request):
+    print(request.data)
+
+    return Response({'message': 'Hello'}, status=status.HTTP_400_BAD_REQUEST)
 
 
